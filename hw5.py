@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import pathlib
-from typing import Union
+from typing import Union, Tuple
 
 class QuestionnaireAnalysis:
     """
@@ -24,7 +24,7 @@ class QuestionnaireAnalysis:
         self.data_original=pd.read_json(self.data_fname)
         self.data=pd.read_json(self.data_fname)
 
-    def show_age_distrib(self): #-> Tuple[np.ndarray, np.ndarray]
+    def show_age_distrib(self) -> Tuple[np.ndarray, np.ndarray]:
         """
         Calculates and plots the age distribution of the participants.
         Returns a tuple containing two numpy arrays:
@@ -47,7 +47,7 @@ class QuestionnaireAnalysis:
         self.data.reset_index(drop=True, inplace=True)
         return self.data
 
-    def fill_na_with_mean(self): #-> Union[pd.DataFrame, np.ndarray]
+    def fill_na_with_mean(self) -> Union[pd.DataFrame, np.ndarray]:
         """
         Finds, in the original DataFrame, the subjects that didn't answer
         all questions, and replaces that missing value with the mean of the
@@ -59,7 +59,7 @@ class QuestionnaireAnalysis:
         self.data=self.data.fillna(self.data.mean()['q1':'q5'])
         return [self.data, row_NaN]
 
-    def correlate_gender_age(self): #-> pd.DataFrame
+    def correlate_gender_age(self) -> pd.DataFrame:
         """
         Looks for a correlation between the gender of the subject, their age
         and the score for all five questions.
@@ -83,3 +83,4 @@ if __name__ == '__main__':
     print(X.remove_rows_without_mail())
     print(X.fill_na_with_mean())
     print(X.correlate_gender_age())
+    
